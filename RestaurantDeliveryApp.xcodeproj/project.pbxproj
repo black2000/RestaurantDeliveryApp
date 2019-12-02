@@ -9,11 +9,16 @@
 /* Begin PBXBuildFile section */
 		6511684BAC7892133050704A /* Pods_RestaurantDeliveryApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D0B9C464C6B0052FD909DB /* Pods_RestaurantDeliveryApp.framework */; };
 		B59CEFBF23954A0100572908 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFBE23954A0100572908 /* AppDelegate.swift */; };
-		B59CEFC123954A0100572908 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFC023954A0100572908 /* ViewController.swift */; };
+		B59CEFC123954A0100572908 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFC023954A0100572908 /* LoginVC.swift */; };
 		B59CEFC423954A0300572908 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59CEFC223954A0300572908 /* Main.storyboard */; };
 		B59CEFC623954A1000572908 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B59CEFC523954A1000572908 /* Assets.xcassets */; };
 		B59CEFC923954A1000572908 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59CEFC723954A1000572908 /* LaunchScreen.storyboard */; };
 		B59CEFD12395676000572908 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B59CEFD02395676000572908 /* GoogleService-Info.plist */; };
+		B59CEFD923956EBA00572908 /* UserConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFD823956EBA00572908 /* UserConfigurations.swift */; };
+		B59CEFDB23956FE300572908 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFDA23956FE300572908 /* AuthService.swift */; };
+		B59CEFDD2395705E00572908 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFDC2395705E00572908 /* UserModel.swift */; };
+		B59CEFDF239571C600572908 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFDE239571C600572908 /* DataService.swift */; };
+		B59CEFE12395840B00572908 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFE02395840B00572908 /* RegisterVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,12 +26,17 @@
 		77350B63BB98D81404D49AB7 /* Pods-RestaurantDeliveryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantDeliveryApp.release.xcconfig"; path = "Target Support Files/Pods-RestaurantDeliveryApp/Pods-RestaurantDeliveryApp.release.xcconfig"; sourceTree = "<group>"; };
 		B59CEFBB23954A0000572908 /* RestaurantDeliveryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantDeliveryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59CEFBE23954A0100572908 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B59CEFC023954A0100572908 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B59CEFC023954A0100572908 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		B59CEFC323954A0300572908 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B59CEFC523954A1000572908 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B59CEFC823954A1000572908 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B59CEFCA23954A1000572908 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B59CEFD02395676000572908 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B59CEFD823956EBA00572908 /* UserConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfigurations.swift; sourceTree = "<group>"; };
+		B59CEFDA23956FE300572908 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		B59CEFDC2395705E00572908 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		B59CEFDE239571C600572908 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		B59CEFE02395840B00572908 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		F8D0B9C464C6B0052FD909DB /* Pods_RestaurantDeliveryApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RestaurantDeliveryApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,8 +82,12 @@
 		B59CEFBD23954A0100572908 /* RestaurantDeliveryApp */ = {
 			isa = PBXGroup;
 			children = (
+				B59CEFD723956E7B00572908 /* Services */,
+				B59CEFD623956E7400572908 /* Helpers */,
+				B59CEFD523956E6A00572908 /* Controllers */,
+				B59CEFD423956E6500572908 /* Views */,
+				B59CEFD323956E5B00572908 /* Models */,
 				B59CEFBE23954A0100572908 /* AppDelegate.swift */,
-				B59CEFC023954A0100572908 /* ViewController.swift */,
 				B59CEFD02395676000572908 /* GoogleService-Info.plist */,
 				B59CEFC223954A0300572908 /* Main.storyboard */,
 				B59CEFC523954A1000572908 /* Assets.xcassets */,
@@ -81,6 +95,47 @@
 				B59CEFCA23954A1000572908 /* Info.plist */,
 			);
 			path = RestaurantDeliveryApp;
+			sourceTree = "<group>";
+		};
+		B59CEFD323956E5B00572908 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B59CEFDC2395705E00572908 /* UserModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B59CEFD423956E6500572908 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B59CEFD523956E6A00572908 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B59CEFC023954A0100572908 /* LoginVC.swift */,
+				B59CEFE02395840B00572908 /* RegisterVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B59CEFD623956E7400572908 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B59CEFD823956EBA00572908 /* UserConfigurations.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B59CEFD723956E7B00572908 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B59CEFDA23956FE300572908 /* AuthService.swift */,
+				B59CEFDE239571C600572908 /* DataService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		B7B9A23FD31575C2DB87BE7F /* Frameworks */ = {
@@ -207,8 +262,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B59CEFC123954A0100572908 /* ViewController.swift in Sources */,
+				B59CEFC123954A0100572908 /* LoginVC.swift in Sources */,
+				B59CEFD923956EBA00572908 /* UserConfigurations.swift in Sources */,
 				B59CEFBF23954A0100572908 /* AppDelegate.swift in Sources */,
+				B59CEFDF239571C600572908 /* DataService.swift in Sources */,
+				B59CEFE12395840B00572908 /* RegisterVC.swift in Sources */,
+				B59CEFDD2395705E00572908 /* UserModel.swift in Sources */,
+				B59CEFDB23956FE300572908 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
