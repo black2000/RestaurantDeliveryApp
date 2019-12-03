@@ -9,7 +9,10 @@
 import UIKit
 import FirebaseAuth
 
+
+
 class UserConfigurations {
-    static let userDefaults = UserDefaults.standard
     static let currentUserID  = Auth.auth().currentUser?.uid
+    static let userDefaultKey = "currentRestaurantId"
+    
 }

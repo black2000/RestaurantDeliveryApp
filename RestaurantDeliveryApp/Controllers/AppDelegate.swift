@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseFirestore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,16 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        let db = Firestore.firestore()
+        UserDefaults.standard.setValue(nil, forKey: UserConfigurations.userDefaultKey)
         
-        db.collection("users").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
+        if Auth.auth().currentUser != nil {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let restaurantVC  = storyBoard.instantiateViewController(withIdentifier: "main")
+            self.window?.rootViewController = restaurantVC
+            self.window?.makeKeyAndVisible()
         }
         
         return true

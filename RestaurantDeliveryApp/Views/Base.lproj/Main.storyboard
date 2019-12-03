@@ -300,7 +300,7 @@
         <!--Order-->
         <scene sceneID="q59-TR-0d6">
             <objects>
-                <viewController id="iYh-Kk-UJ4" sceneMemberID="viewController">
+                <viewController id="iYh-Kk-UJ4" customClass="RestaurantsVC" customModule="RestaurantDeliveryApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bnh-4a-pxs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -322,6 +322,9 @@
                                     <navigationItem title="Restaurants" largeTitleDisplayMode="always" id="U1J-y4-gmB">
                                         <barButtonItem key="leftBarButtonItem" title="Sign Out" id="hz2-0V-oJ5">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="signOutBtnPressed:" destination="iYh-Kk-UJ4" id="Guz-hD-Rw5"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -338,12 +341,15 @@
                                     <segment title="" image="sweets"/>
                                 </segments>
                                 <color key="tintColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="segmentedControlValueChanged:" destination="iYh-Kk-UJ4" eventType="valueChanged" id="EDv-dl-DHJ"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nSL-wL-ThT">
                                 <rect key="frame" x="0.0" y="151" width="375" height="467"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="hJb-Kt-uJ5">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="hJb-Kt-uJ5" customClass="RestaurantCell" customModule="RestaurantDeliveryApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hJb-Kt-uJ5" id="f3v-eo-wFv">
@@ -394,6 +400,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <outlet property="restaurantDescriptionLbl" destination="OC8-py-Q7U" id="poP-8Y-Zpe"/>
+                                            <outlet property="restaurantImageView" destination="JQb-DG-V5a" id="FGQ-3z-XUW"/>
+                                            <outlet property="restaurantTitleLbl" destination="6Uh-lc-ts8" id="MRd-jb-Uo3"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -414,6 +425,10 @@
                         <viewLayoutGuide key="safeArea" id="nWV-dy-rNk"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Order" image="Order" id="dPO-o2-nhU"/>
+                    <connections>
+                        <outlet property="tableView" destination="nSL-wL-ThT" id="JAg-0e-n8d"/>
+                        <segue destination="0sn-ad-S4d" kind="show" identifier="toMenuItemVC" id="79y-pE-vmt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pgf-M9-Iiv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -458,7 +473,7 @@
         <!--Order-->
         <scene sceneID="vun-Aa-VVP">
             <objects>
-                <viewController id="0sn-ad-S4d" sceneMemberID="viewController">
+                <viewController id="0sn-ad-S4d" customClass="MenuItemVC" customModule="RestaurantDeliveryApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WmH-i8-v4w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -479,11 +494,18 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Menu" largeTitleDisplayMode="always" id="9Uc-qa-Yd9">
-                                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="XLb-Lp-96T">
+                                        <barButtonItem key="leftBarButtonItem" title="&lt; Back" id="XLb-Lp-96T">
                                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <connections>
+                                                <action selector="backBtnPressed:" destination="0sn-ad-S4d" id="eZF-FA-KTu"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="cart" id="YQL-oO-Ka5">
                                             <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="cartBtnPressed:" destination="0sn-ad-S4d" id="tKu-wY-T5K"/>
+                                                <segue destination="Lu1-hw-of1" kind="show" identifier="toCartVC" id="kWt-6I-hbZ"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -500,12 +522,15 @@
                                     <segment title="" image="drink"/>
                                 </segments>
                                 <color key="tintColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="segmentedControlValueChanged:" destination="0sn-ad-S4d" eventType="valueChanged" id="rnC-NG-hfA"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mtr-qB-awh">
                                 <rect key="frame" x="0.0" y="151" width="375" height="516"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="5hZ-AH-3gR">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="5hZ-AH-3gR" customClass="MenuItemCell" customModule="RestaurantDeliveryApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5hZ-AH-3gR" id="36D-t9-iM5">
@@ -556,6 +581,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <outlet property="menuItemDescriptionLbl" destination="DpZ-LQ-JyF" id="2GZ-uj-U56"/>
+                                            <outlet property="menuItemImageView" destination="V5O-yx-7VD" id="RKF-nK-Oda"/>
+                                            <outlet property="menuItemTitleLbl" destination="L2l-F2-lZJ" id="xu8-gb-7Hs"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -576,15 +606,19 @@
                         <viewLayoutGuide key="safeArea" id="UaJ-cq-b1y"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Order" image="Order" id="kOc-EN-MQY"/>
+                    <connections>
+                        <outlet property="tableView" destination="mtr-qB-awh" id="TdM-Ue-trd"/>
+                        <segue destination="bgs-7y-6TF" kind="show" identifier="toOrderVC" id="jpg-tw-Fsq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIZ-1s-00O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4970" y="-654"/>
         </scene>
-        <!--View Controller-->
+        <!--OrderVC-->
         <scene sceneID="OWV-b1-96Z">
             <objects>
-                <viewController id="bgs-7y-6TF" sceneMemberID="viewController">
+                <viewController id="bgs-7y-6TF" customClass="OrderVC" customModule="RestaurantDeliveryApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Nz-6D-0HW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -610,6 +644,9 @@
                                                     <constraint firstAttribute="width" constant="60" id="zae-Xo-75y"/>
                                                 </constraints>
                                                 <state key="normal" image="minus"/>
+                                                <connections>
+                                                    <action selector="minusBtnPressed:" destination="bgs-7y-6TF" eventType="touchUpInside" id="Jww-Ft-a1o"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBU-dP-QGG">
                                                 <rect key="frame" x="125" y="0.0" width="60" height="60"/>
@@ -633,6 +670,9 @@
                                                 <state key="normal" title="+">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="addBtnPressed:" destination="bgs-7y-6TF" eventType="touchUpInside" id="IoF-sI-A7C"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -648,6 +688,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="addToCartBtnPressed:" destination="bgs-7y-6TF" eventType="touchUpInside" id="0Qr-cE-6Lx"/>
                                             <action selector="registerBtnPressed:" destination="FIw-4p-jHb" eventType="touchUpInside" id="F5e-Hj-gDK"/>
                                         </connections>
                                     </button>
@@ -678,8 +719,18 @@
                                 <color key="barTintColor" name="findHighlightColor" catalog="System" colorSpace="catalog"/>
                                 <items>
                                     <navigationItem title="Order Now" id="ZpW-ZQ-lJB">
+                                        <barButtonItem key="leftBarButtonItem" title="&lt; Back" id="t8b-WQ-Neb">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="backBtnPressed:" destination="bgs-7y-6TF" id="fcl-9C-Twm"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="cart" landscapeImage="cart" id="zwa-W6-OM7">
                                             <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="cartBtnPressed:" destination="bgs-7y-6TF" id="8uf-Cm-frq"/>
+                                                <segue destination="Lu1-hw-of1" kind="show" identifier="toCartVC" id="5X0-gt-uSO"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -702,6 +753,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J2J-Pq-8Si"/>
                     </view>
+                    <connections>
+                        <outlet property="menuItemImageView" destination="8ca-Ys-4RK" id="NDe-y2-EUs"/>
+                        <outlet property="menuItemTitleLbl" destination="kgS-0s-Hwg" id="kJd-re-qCU"/>
+                        <outlet property="selectedItemCountLbl" destination="JBU-dP-QGG" id="nZB-6j-FbM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G3L-H3-FC3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -719,4 +775,7 @@
         <image name="review" width="50" height="50"/>
         <image name="sweets" width="50" height="50"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="5X0-gt-uSO"/>
+    </inferredMetricsTieBreakers>
 </document>
