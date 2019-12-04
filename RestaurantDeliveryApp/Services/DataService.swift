@@ -98,10 +98,12 @@ class DataService {
     
     func addMenuItemToCart(numberOFSelecteditem: Int ,restaurant : RestaurantModel ,menuItem : MenuItemModel , completion : @escaping (_ error : Error?) -> () ) {
         
-        let cartItem = CartItemModel(id: "", restaurantTitle: restaurant.title, menuItemTitle: menuItem.title, countOfMenuItemSelected : numberOFSelecteditem)
+        let cartItem = CartItemModel(id: "", restaurantImageUrl: restaurant.imageUrl,  restaurantTitle: restaurant.title, menuItemImageUrl: menuItem.imageUrl, menuItemTitle: menuItem.title, countOfMenuItemSelected : numberOFSelecteditem)
         
         USERS.document(UserConfigurations.currentUserID!).collection("cart").addDocument(data: [
             "restaurant_title" :  cartItem.restaurantTitle,
+            "restaurant_imageurl" : cartItem.restaurantImageUrl ,
+            "menuItem_imageurl" : cartItem.menuItemImageUrl ,
             "menuItem_title" :  cartItem.menuItemTitle,
             "number_of_selected_menuitem" : cartItem.countOfMenuItemSelected
         ]) {
@@ -169,7 +171,7 @@ class DataService {
     
     
     
-    private func loadUserCartData(completion : @escaping (_ error : Error? ,_ carts : [CartItemModel]?) -> () ) {
+     func loadUserCartData(completion : @escaping (_ error : Error? ,_ carts : [CartItemModel]?) -> () ) {
         
         var cartArray = [CartItemModel]()
         
@@ -184,12 +186,13 @@ class DataService {
                     
                     let cartDictionary = document.data()
                     
+                    let restaurantImageUrl = cartDictionary["restaurant_imageurl"] as? String ?? "none"
                     let restaurantName = cartDictionary["restaurant_title"] as? String ?? "none"
+                    let menuItemImageUrl = cartDictionary["menuItem_imageurl"] as? String ?? "none"
                     let menuItemName = cartDictionary["menuItem_title"] as? String ?? "none"
                     let count = cartDictionary["number_of_selected_menuitem"] as? Int ?? 0
                     
-                    let cart = CartItemModel(id: id, restaurantTitle: restaurantName, menuItemTitle: menuItemName, countOfMenuItemSelected: count)
-                    
+                    let cart = CartItemModel(id: id, restaurantImageUrl: restaurantImageUrl, restaurantTitle: restaurantName, menuItemImageUrl: menuItemImageUrl, menuItemTitle: menuItemName, countOfMenuItemSelected: count)
                     
                     cartArray.append(cart)
                 }
@@ -227,11 +230,26 @@ class DataService {
               }
             }
         }
-        
-        
-       
-        
     }
+    
+    
+    
+    func updateUserCartData(cartId : String , numberOfItemSelected : Int ,completion : @escaping (_ error : Error?) -> ()){
+        
+       USERS.document(UserConfigurations.currentUserID!).collection("cart").document(cartId).updateData([
+            "number_of_selected_menuitem" : numberOfItemSelected
+        ]) { (error) in
+            
+            if error != nil {
+               completion(error)
+            }else {
+               completion(nil)
+            }
+        }
+    }
+    
+    
+    
     
     
     

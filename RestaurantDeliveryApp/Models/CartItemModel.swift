@@ -11,7 +11,9 @@ import Foundation
 
 struct CartItemModel {
     var id : String? = ""
+    var restaurantImageUrl : String
     var restaurantTitle : String
+    var menuItemImageUrl : String
     var menuItemTitle : String
     var countOfMenuItemSelected : Int
 }

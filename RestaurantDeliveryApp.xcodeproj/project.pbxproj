@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6511684BAC7892133050704A /* Pods_RestaurantDeliveryApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D0B9C464C6B0052FD909DB /* Pods_RestaurantDeliveryApp.framework */; };
+		B57179702397F2D400E1C977 /* CartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B571796F2397F2D400E1C977 /* CartItemCell.swift */; };
+		B57179722397F34C00E1C977 /* CartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57179712397F34C00E1C977 /* CartVC.swift */; };
 		B59CEFBF23954A0100572908 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFBE23954A0100572908 /* AppDelegate.swift */; };
 		B59CEFC123954A0100572908 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFC023954A0100572908 /* LoginVC.swift */; };
 		B59CEFC423954A0300572908 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59CEFC223954A0300572908 /* Main.storyboard */; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		289DBB2E5290153F9E021F66 /* Pods-RestaurantDeliveryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantDeliveryApp.debug.xcconfig"; path = "Target Support Files/Pods-RestaurantDeliveryApp/Pods-RestaurantDeliveryApp.debug.xcconfig"; sourceTree = "<group>"; };
 		77350B63BB98D81404D49AB7 /* Pods-RestaurantDeliveryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantDeliveryApp.release.xcconfig"; path = "Target Support Files/Pods-RestaurantDeliveryApp/Pods-RestaurantDeliveryApp.release.xcconfig"; sourceTree = "<group>"; };
+		B571796F2397F2D400E1C977 /* CartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemCell.swift; sourceTree = "<group>"; };
+		B57179712397F34C00E1C977 /* CartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartVC.swift; sourceTree = "<group>"; };
 		B59CEFBB23954A0000572908 /* RestaurantDeliveryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantDeliveryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59CEFBE23954A0100572908 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B59CEFC023954A0100572908 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				B59CEFE32396A18700572908 /* RestaurantsVC.swift */,
 				B59CEFF12396BD2B00572908 /* MenuItemVC.swift */,
 				B59CEFF32396BD5E00572908 /* OrderVC.swift */,
+				B57179712397F34C00E1C977 /* CartVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -177,6 +182,7 @@
 			children = (
 				B59CEFEF2396A97400572908 /* RestaurantCell.swift */,
 				B59CEFF52396BDBF00572908 /* MenuItemCell.swift */,
+				B571796F2397F2D400E1C977 /* CartItemCell.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -319,6 +325,8 @@
 				B59CEFDD2395705E00572908 /* UserModel.swift in Sources */,
 				B59CEFDB23956FE300572908 /* AuthService.swift in Sources */,
 				B59CEFF02396A97400572908 /* RestaurantCell.swift in Sources */,
+				B57179722397F34C00E1C977 /* CartVC.swift in Sources */,
+				B57179702397F2D400E1C977 /* CartItemCell.swift in Sources */,
 				B59CEFEA2396A71B00572908 /* CartItemModel.swift in Sources */,
 				B59CEFE82396A67B00572908 /* MenuItemModel.swift in Sources */,
 			);
@@ -468,7 +476,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RestaurantDeliveryApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RestaurantDeliveryApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -486,7 +494,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RestaurantDeliveryApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RestaurantDeliveryApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

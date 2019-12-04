@@ -23,6 +23,21 @@ class LoginVC: UIViewController {
     
     @IBAction func loginBtnPressed(_ sender: Any) {
         
+        if userEmailTextField.text != "" && userPasswordTextField.text != "" {
+            
+            let user = UserModel(id: "", email: userEmailTextField.text!, password:userPasswordTextField.text!, phone: "")
+            
+            AuthService.instance.LoginUser(user: user) { (error) in
+                if error == nil {
+                    UserConfigurations.moveToRestaurantVC()
+                }else {
+                    print("couldnot login due to error \(error!)")
+                }
+            }
+        }
+        
+        
+        
     }
     
     

@@ -12,19 +12,69 @@ class OrderVC: UIViewController {
 
     var selectedRestaurant : RestaurantModel?
     var selectedMenuItem : MenuItemModel?
-   
-
+    
+    //for editing
+    var isEditingCartItem : Bool = false
+    var cartItemForEditing : CartItemModel?
+    
     @IBOutlet weak var menuItemImageView: UIImageView!
     @IBOutlet weak var menuItemTitleLbl: UILabel!
     @IBOutlet weak var selectedItemCountLbl: UILabel!
     
+    
+    
+    @IBOutlet weak var backBarBtn: UIBarButtonItem!
+    @IBOutlet weak var cartBarBtn: UIBarButtonItem!
+    
+    @IBOutlet weak var addToCartBtn: UIButton!
+    @IBOutlet weak var updateView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if  let menuItem = selectedMenuItem {
-             configureViews(menuItemModel: menuItem)
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if isEditingCartItem {
+            if let existingCartItem = cartItemForEditing {
+                configureButtons(isEditingMode: isEditingCartItem)
+                configureViewsForEditing(cartItemModel: existingCartItem)
+            }
+        }else {
+            if  let menuItem = selectedMenuItem {
+                configureButtons(isEditingMode: isEditingCartItem)
+                configureViews(menuItemModel: menuItem)
+            }
         }
     }
+    
+    
+    
+    private func configureButtons(isEditingMode : Bool) {
+            addToCartBtn.isHidden = isEditingMode ? true : false
+            addToCartBtn.isEnabled = isEditingMode ? false : true
+            updateView.isHidden = isEditingMode ? false : true
+        
+        backBarBtn.title = isEditingMode ? "" : "< Back"
+        cartBarBtn.image = isEditingMode ? nil : UIImage(named : "cart")
+        
+        backBarBtn.isEnabled = isEditingMode ? false : true
+        cartBarBtn.isEnabled = isEditingMode ? false : true
+    }
+    
+    
+    
+    
+    
+    private func configureViewsForEditing(cartItemModel : CartItemModel) {
+        menuItemImageView.image = UIImage(named : cartItemModel.menuItemImageUrl)
+        menuItemTitleLbl.text = cartItemModel.menuItemTitle
+        selectedItemCountLbl.text = String(describing: cartItemModel.countOfMenuItemSelected)
+    }
+    
     
     private func configureViews(menuItemModel : MenuItemModel) {
         menuItemImageView.image = UIImage(named : menuItemModel.imageUrl)
@@ -122,15 +172,6 @@ class OrderVC: UIViewController {
                     
                 }
             }
-            
-            
-          
-            
-            
-            
-            
-            
-            
         }
     }
     
@@ -141,6 +182,31 @@ class OrderVC: UIViewController {
     
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func updateBtnPressed(_ sender: Any) {
+        guard isEditingCartItem  else {
+            return
+        }
+        
+        if let existingCartItem = cartItemForEditing ,
+           let count =  Int(selectedItemCountLbl.text!) {
+            DataService.instance.updateUserCartData(cartId: existingCartItem.id!, numberOfItemSelected: count) { (error) in
+                
+                if error != nil {
+                    print("error updating data due to error \(error!)")
+                }else {
+                    UserConfigurations.moveToCartVC()
+                }
+            }
+        }
+    }
+    
+    
+    
+    @IBAction func cancelUpdateBtnPressed(_ sender: Any) {
+        performSegue(withIdentifier: "backToCartVC", sender: self)
     }
     
     

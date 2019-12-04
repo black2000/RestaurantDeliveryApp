@@ -55,19 +55,7 @@ class RestaurantsVC: UIViewController {
     
     
     @IBAction func signOutBtnPressed(_ sender: UIBarButtonItem) {
-        
-        do {
-            try Auth.auth().signOut()
-            
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let loginVC  = storyBoard.instantiateInitialViewController()
-            let window = (UIApplication.shared.delegate as! AppDelegate).window
-            window?.rootViewController = loginVC
-            window?.makeKeyAndVisible()
-        }catch {
-            
-        }
-        
+        UserConfigurations.moveToLoginVC()
     }
     
 }

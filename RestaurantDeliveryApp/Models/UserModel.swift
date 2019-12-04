@@ -11,8 +11,8 @@ import Foundation
 
 
 struct UserModel {
-    var id : String? = ""
+    var id : String?
     var email : String
-    var password :String? = ""
-    var phone : String? = ""
+    var password :String?
+    var phone : String? 
 }

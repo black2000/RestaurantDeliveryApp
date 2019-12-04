@@ -21,9 +21,7 @@ class RegisterVC: UIViewController {
 
     }
     
-    
     @IBAction func registerBtnPressed(_ sender: Any) {
-        
        if userEmailTextField.text != "" &&
           userPasswordTextField.text == userConfirmPasswordTextField.text &&
           userPhoneTextField.text?.count == 11  {
@@ -31,10 +29,10 @@ class RegisterVC: UIViewController {
             let user = UserModel(id: "", email: userEmailTextField.text!, password: userPasswordTextField.text!, phone: userPhoneTextField.text!)
         
             AuthService.instance.registerUser(user: user) { (error) in
-                if error != nil {
-                    
+                if error == nil {
+                    UserConfigurations.moveToRestaurantVC()
                 }else {
-                    
+                    print("couldnot register due to error \(error!)")
                 }
                 
                 
