@@ -13,25 +13,24 @@ class CartVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var checkOutBtn: UIButton!
-    @IBOutlet weak var editBtn: UIBarButtonItem!
+
     
     var cartItemArray = [CartItemModel]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+
         loadCartItems()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        checkViews()
-    }
+  
     
     private func checkViews() {
         self.checkOutBtn.isHidden = cartItemArray.count > 0 ? false : true
-        self.editBtn.title = cartItemArray.count > 0  ? "Edit" : ""
-        self.editBtn.isEnabled = cartItemArray.count > 0  ? true  : false
     }
     
     private func loadCartItems() {
@@ -43,6 +42,7 @@ class CartVC: UIViewController {
                 if let returnedArray =  data {
                     self.cartItemArray = returnedArray
                     self.tableView.reloadData()
+                    self.checkViews()
                 }
             }
         }
@@ -54,7 +54,8 @@ class CartVC: UIViewController {
        UserConfigurations.moveToLoginVC()
     }
     
-    @IBAction func editBtnPressed(_ sender: Any) {
+    @IBAction func cancelBtnPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -64,27 +65,33 @@ class CartVC: UIViewController {
             if error != nil {
                 print("couldnot checkout due to error \(error!)")
             }else {
-                self.loadCartItems()
-                
-                let alert = UIAlertController(title: "Congrats", message: "Checkout Success", preferredStyle: .alert)
-                
-                let moveBackToRestaurantVCAction =  UIAlertAction(title: "return to Restaurants Screen", style: .default, handler: { (_) in
-                    
-                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    let restaurantVC  = storyBoard.instantiateViewController(withIdentifier: "main")
-                    let window = (UIApplication.shared.delegate as! AppDelegate).window
-                    window?.rootViewController = restaurantVC
-                    window?.makeKeyAndVisible()
+                DataService.instance.clearAllUserCartData(completion: { (error) in
+                    if error != nil {
+                        print("erorr deleting all cart data due to \(error!)")
+                    }else {
+                        
+                        UserDefaults.standard.set(nil, forKey: UserConfigurations.userDefaultKey)
+                        
+                        self.loadCartItems()
+                        
+                        let alert = UIAlertController(title: "Congrats", message: "Checkout Success", preferredStyle: .alert)
+                        
+                        let moveBackToRestaurantVCAction =  UIAlertAction(title: "return to Restaurants Screen", style: .default, handler: { (_) in
+                            
+                            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                            let restaurantVC  = storyBoard.instantiateViewController(withIdentifier: "main")
+                            let window = (UIApplication.shared.delegate as! AppDelegate).window
+                            window?.rootViewController = restaurantVC
+                            window?.makeKeyAndVisible()
+                        })
+                        
+                        alert.addAction(moveBackToRestaurantVCAction)
+                        self.present(alert, animated: true)
+                    }
                 })
-                
-                alert.addAction(moveBackToRestaurantVCAction)
-                
-                self.present(alert, animated: true)
-                
             }
         }
     }
-    
 }
 
 extension CartVC : UITableViewDelegate , UITableViewDataSource {

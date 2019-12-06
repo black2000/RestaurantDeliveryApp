@@ -197,37 +197,151 @@ class DataService {
                     cartArray.append(cart)
                 }
                 
-                completion(error , cartArray)
+                completion(nil, cartArray)
             }
         }
     }
     
     
-    
-    
-    func MoveDataFromUserCartToUserHistory(completion : @escaping (_ error : Error?) -> () ) {
+    private func initiateUserHistoryWithNewData(completion : @escaping (_ error : Error?) -> () ) {
         
-        loadUserCartData { (error, cartsArray) in
+    USERS.document(UserConfigurations.currentUserID!).collection("history").addDocument(data: [
+            "date_order_created" : Date()
+         ]) {
+            error in
             if error != nil {
                 completion(error)
             }else {
-                USERS.document(UserConfigurations.currentUserID!).collection("history").addDocument(data: [
-                "date_created" : Date() ,
-                "carts" : cartsArray!
-            ]) {
-                error in
-                if error != nil {
-                    completion(error)
+                completion(nil)
+            }
+        }
+    }
+    
+//    private func getLastHistoryDocumentId(completion : @escaping (_ error : Error? ,_ lastHistoryDocumentId : String? ) -> ()) {
+//
+//        var historyArray = [UserOrderHistoryModel]()
+//
+//        initiateUserHistoryWithNewData { (error) in
+//
+//            if error != nil {
+//                completion(error , nil)
+//            }else {
+//
+//            USERS.document(UserConfigurations.currentUserID!).collection("history").getDocuments { (snapShot, error) in
+//                    if error != nil {
+//                        completion(error,nil)
+//                        print("error in getting historyId")
+//                    }else {
+//                        for document in snapShot!.documents {
+//
+//                            let id = document.documentID
+//                            let historyDictionary = document.data()
+//
+//                            let orderDateCreate = historyDictionary["date_order_created"] as? String ?? "none"
+//
+//                            let userHistory = UserOrderHistoryModel(id: id, dateOrderCreated: orderDateCreate, cartArray: nil)
+//
+//                            historyArray.append(userHistory)
+//                        }
+//                        completion(nil, historyArray[historyArray.count - 1 ].id)
+//                    }
+//                }
+//                completion(nil, historyArray[historyArray.count - 1 ].id)
+//            }
+//        }
+//    }
+    
+    
+    
+     func getLastHistoryDocumentId(completion : @escaping (_ error : Error? ,_ lastHistoryDocumentId : String? ) -> ()) {
+        
+        var historyId = ""
+        
+        initiateUserHistoryWithNewData { (error) in
+            
+            if error != nil {
+                completion(error , nil)
+            }
+            else
+            {
+              
+            USERS.document(UserConfigurations.currentUserID!).collection("history").order(by: "date_order_created", descending: true).limit(to: 1).getDocuments { (data, err) in
+                
+                if err != nil {
+                    completion(err, nil)
                 }else {
-                    self.clearAllUserCartData(completion: { (error) in
-                        if error != nil {
-                            completion(error)
-                        }else {
-                            completion(nil)
-                        }
-                    })
+                    for i in data!.documents {
+                        historyId = i.documentID
+                    }
+                    completion(nil, historyId)
                 }
-              }
+            }
+        }
+    }
+    }
+    
+
+    func returnLastHistoryId() -> String? {
+        var historyId : String? = ""
+        getLastHistoryDocumentId { (error, id) in
+            if error != nil {
+                 historyId = nil
+            }else {
+                 historyId = id!
+            }         
+        }
+        return historyId
+    }
+    
+    
+    
+    
+    
+    func MoveDataFromUserCartToUserHistory(completion : @escaping (_ error : Error?) -> () ) {
+      
+        
+        
+        getLastHistoryDocumentId { (err, historyId) in
+            if err != nil {
+                completion(err)
+            }else {
+                
+            USERS.document(UserConfigurations.currentUserID!).collection("cart").getDocuments { (snapShot, error) in
+                    if error != nil {
+                        completion(error)
+                    }else {
+                        for document in snapShot!.documents {
+                            
+                            let cartDictionary = document.data()
+                            let restaurantImageUrl = cartDictionary["restaurant_imageurl"] as? String ?? "none"
+                            let restaurantName = cartDictionary["restaurant_title"] as? String ?? "none"
+                            let menuItemImageUrl = cartDictionary["menuItem_imageurl"] as? String ?? "none"
+                            let menuItemName = cartDictionary["menuItem_title"] as? String ?? "none"
+                            let count = cartDictionary["number_of_selected_menuitem"] as? Int ?? 0
+                            
+                            USERS.document(UserConfigurations.currentUserID!).collection("history").document(historyId!).collection("orders").addDocument(data: [
+                                "restaurant_imageurl" : restaurantImageUrl  ,
+                                "restaurant_title" :  restaurantName,
+                                "menuItem_imageurl" : menuItemImageUrl,
+                                "menuItem_title" : menuItemName,
+                                "number_of_selected_menuitem" : count
+                            ]) {
+                                error in
+                                if error != nil {
+                                    completion(error)
+                                }else {
+                                    completion(nil)
+                                }
+                            }
+                        }
+                        completion(nil)
+                    }
+                }
+                
+                
+             
+                
+                completion(nil)
             }
         }
     }

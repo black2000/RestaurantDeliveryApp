@@ -64,7 +64,7 @@ class MenuItemVC: UIViewController {
     
     
     @IBAction func cartBtnPressed(_ sender: Any) {
-        performSegue(withIdentifier: "toCartVC", sender: self)
+        UserConfigurations.moveToCartVC()
     }
     
     @IBAction func backBtnPressed(_ sender: Any) {

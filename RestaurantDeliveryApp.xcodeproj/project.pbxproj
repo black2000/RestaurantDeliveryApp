@@ -10,6 +10,8 @@
 		6511684BAC7892133050704A /* Pods_RestaurantDeliveryApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D0B9C464C6B0052FD909DB /* Pods_RestaurantDeliveryApp.framework */; };
 		B57179702397F2D400E1C977 /* CartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B571796F2397F2D400E1C977 /* CartItemCell.swift */; };
 		B57179722397F34C00E1C977 /* CartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57179712397F34C00E1C977 /* CartVC.swift */; };
+		B57BCEE5239959980053FDF6 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57BCEE4239959980053FDF6 /* CustomTableViewCell.swift */; };
+		B57BCEE823998C490053FDF6 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57BCEE723998C490053FDF6 /* DateExtension.swift */; };
 		B59CEFBF23954A0100572908 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFBE23954A0100572908 /* AppDelegate.swift */; };
 		B59CEFC123954A0100572908 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CEFC023954A0100572908 /* LoginVC.swift */; };
 		B59CEFC423954A0300572908 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59CEFC223954A0300572908 /* Main.storyboard */; };
@@ -37,6 +39,8 @@
 		77350B63BB98D81404D49AB7 /* Pods-RestaurantDeliveryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantDeliveryApp.release.xcconfig"; path = "Target Support Files/Pods-RestaurantDeliveryApp/Pods-RestaurantDeliveryApp.release.xcconfig"; sourceTree = "<group>"; };
 		B571796F2397F2D400E1C977 /* CartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemCell.swift; sourceTree = "<group>"; };
 		B57179712397F34C00E1C977 /* CartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartVC.swift; sourceTree = "<group>"; };
+		B57BCEE4239959980053FDF6 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		B57BCEE723998C490053FDF6 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		B59CEFBB23954A0000572908 /* RestaurantDeliveryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantDeliveryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59CEFBE23954A0100572908 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B59CEFC023954A0100572908 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -83,6 +87,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B57BCEE623998C110053FDF6 /* Classes Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B57BCEE723998C490053FDF6 /* DateExtension.swift */,
+			);
+			path = "Classes Extensions";
+			sourceTree = "<group>";
+		};
 		B59CEFB2239549FE00572908 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +116,7 @@
 		B59CEFBD23954A0100572908 /* RestaurantDeliveryApp */ = {
 			isa = PBXGroup;
 			children = (
+				B57BCEE623998C110053FDF6 /* Classes Extensions */,
 				B59CEFED2396A83000572908 /* Supporting Files */,
 				B59CEFD723956E7B00572908 /* Services */,
 				B59CEFD623956E7400572908 /* Helpers */,
@@ -183,6 +196,7 @@
 				B59CEFEF2396A97400572908 /* RestaurantCell.swift */,
 				B59CEFF52396BDBF00572908 /* MenuItemCell.swift */,
 				B571796F2397F2D400E1C977 /* CartItemCell.swift */,
+				B57BCEE4239959980053FDF6 /* CustomTableViewCell.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -312,10 +326,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B59CEFEC2396A7BC00572908 /* UserOrderHistoryModel.swift in Sources */,
+				B57BCEE823998C490053FDF6 /* DateExtension.swift in Sources */,
 				B59CEFF62396BDBF00572908 /* MenuItemCell.swift in Sources */,
 				B59CEFC123954A0100572908 /* LoginVC.swift in Sources */,
 				B59CEFE62396A53500572908 /* RestaurantModel.swift in Sources */,
 				B59CEFD923956EBA00572908 /* UserConfigurations.swift in Sources */,
+				B57BCEE5239959980053FDF6 /* CustomTableViewCell.swift in Sources */,
 				B59CEFF42396BD5E00572908 /* OrderVC.swift in Sources */,
 				B59CEFF22396BD2B00572908 /* MenuItemVC.swift in Sources */,
 				B59CEFBF23954A0100572908 /* AppDelegate.swift in Sources */,

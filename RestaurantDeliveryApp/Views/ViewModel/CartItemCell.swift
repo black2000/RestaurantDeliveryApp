@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CartItemCell: UITableViewCell {
+class CartItemCell: CustomTableViewCell {
 
     
     @IBOutlet weak var restaurantImageView: UIImageView!

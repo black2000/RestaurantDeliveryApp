@@ -10,5 +10,6 @@ import Foundation
 
 struct UserOrderHistoryModel {
     var id : String? = ""
-    var cartArray : [CartItemModel]
+    var dateOrderCreated : String? = ""
+    var cartArray : [CartItemModel]?
 }

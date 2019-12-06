@@ -8,10 +8,11 @@
 
 import UIKit
 
-class OrderVC: UIViewController {
+class OrderVC: UIViewController  {
 
     var selectedRestaurant : RestaurantModel?
     var selectedMenuItem : MenuItemModel?
+    var count : Int? = 0
     
     //for editing
     var isEditingCartItem : Bool = false
@@ -32,12 +33,6 @@ class OrderVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         if isEditingCartItem {
             if let existingCartItem = cartItemForEditing {
                 configureButtons(isEditingMode: isEditingCartItem)
@@ -50,6 +45,9 @@ class OrderVC: UIViewController {
             }
         }
     }
+    
+    
+    
     
     
     
@@ -79,6 +77,7 @@ class OrderVC: UIViewController {
     private func configureViews(menuItemModel : MenuItemModel) {
         menuItemImageView.image = UIImage(named : menuItemModel.imageUrl)
         menuItemTitleLbl.text = menuItemModel.title
+        selectedItemCountLbl.text = "1"
     }
     
     
@@ -95,28 +94,30 @@ class OrderVC: UIViewController {
     }
     
     
-    private func modifyCount(isIncreasing : Bool) {
+    private func modifyCount(isIncreasing : Bool) -> Int {
         
-        var count = Int(selectedItemCountLbl.text!)
+        print("------ \(count!)")
         
         if isIncreasing {
             count = count! + 1
         }else {
-            guard count! >= 2 else {return }
+            guard count! >= 2 else {return count!}
             count = count! - 1
         }
-        
-        selectedItemCountLbl.text = String(describing : count! )
-        
+       
+         return count!
     }
 
     @IBAction func minusBtnPressed(_ sender: Any) {
-        modifyCount(isIncreasing: false)
-    
+        DispatchQueue.main.async {
+            self.selectedItemCountLbl.text = "\(self.modifyCount(isIncreasing: false))"
+        }
     }
     
     @IBAction func addBtnPressed(_ sender: Any) {
-        modifyCount(isIncreasing: true)
+        DispatchQueue.main.async {
+            self.selectedItemCountLbl.text = "\(self.modifyCount(isIncreasing: true))"
+        }
     }
     
     
@@ -127,14 +128,9 @@ class OrderVC: UIViewController {
     @IBAction func addToCartBtnPressed(_ sender: Any) {
         let currentRestaurantId = UserDefaults.standard.string(forKey: UserConfigurations.userDefaultKey)
         
-        
-        
-        
         if let restaurant = selectedRestaurant ,
            let menuItem = selectedMenuItem,
            let count = Int(selectedItemCountLbl.text!){
-            
-            
             
             if currentRestaurantId == nil {
                 UserDefaults.standard.set(restaurant.id!, forKey: UserConfigurations.userDefaultKey)
@@ -155,6 +151,7 @@ class OrderVC: UIViewController {
                             if error != nil {
                                 print("canot clear cart due to \(error!)")
                             }else {
+                                UserDefaults.standard.set(restaurant.id!, forKey: UserConfigurations.userDefaultKey)
                                 self.addToCart(count: count, restaurant: restaurant, menuItem: menuItem)
                             }
                         })
@@ -176,7 +173,7 @@ class OrderVC: UIViewController {
     }
     
     @IBAction func cartBtnPressed(_ sender: Any) {
-        performSegue(withIdentifier: "toCartVC", sender: self)
+        UserConfigurations.moveToCartVC()
     }
     
     

@@ -19,13 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        UserDefaults.standard.setValue(nil, forKey: UserConfigurations.userDefaultKey)
         
         if Auth.auth().currentUser != nil {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let restaurantVC  = storyBoard.instantiateViewController(withIdentifier: "main")
-            self.window?.rootViewController = restaurantVC
-            self.window?.makeKeyAndVisible()
+           UserConfigurations.moveToRestaurantVC()
         }
         
         return true

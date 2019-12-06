@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuItemCell: UITableViewCell {
+class MenuItemCell: CustomTableViewCell {
 
     @IBOutlet weak var menuItemImageView: UIImageView!
     
