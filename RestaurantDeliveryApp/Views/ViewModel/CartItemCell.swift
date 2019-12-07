@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol cellSegueProtocol {
+    func moveToOrderVCForEdit(_ sender : UIButton)
+}
+
+
+
 class CartItemCell: CustomTableViewCell {
 
     
@@ -15,6 +21,18 @@ class CartItemCell: CustomTableViewCell {
     @IBOutlet weak var restaurantTitleLbl: UILabel!
     @IBOutlet weak var menuItemTitleLbl: UILabel!
     @IBOutlet weak var numOfSelectedmenuitemLbl: UILabel!
+    
+    @IBOutlet weak var editBtn: UIButton!
+    
+    var delegate : cellSegueProtocol?
+    
+    
+    @IBAction func editBtnPressed(_ sender: Any) {
+       
+        guard delegate != nil else {return}
+        delegate!.moveToOrderVCForEdit(sender as! UIButton)
+    }
+    
     
     
     

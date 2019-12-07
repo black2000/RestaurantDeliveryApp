@@ -105,6 +105,8 @@ extension CartVC : UITableViewDelegate , UITableViewDataSource {
             
             let cart = cartItemArray[indexPath.row]
             cell.configureViews(cartItemModel: cart)
+            cell.delegate = self
+            cell.editBtn.tag = indexPath.row
             return cell
         
         }else {
@@ -120,9 +122,11 @@ extension CartVC : UITableViewDelegate , UITableViewDataSource {
             DataService.instance.clearSpecificUserCartData(cartId: cart.id!) { (error) in
                 
                 if error != nil {
-                    print("error deleting data due to \(error)")
+                    print("error deleting data due to \(error!)")
                 }else {
+                    self.cartItemArray.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.checkViews()
                 }
             }
         }
@@ -135,16 +139,21 @@ extension CartVC : UITableViewDelegate , UITableViewDataSource {
             
             if let orderVC  = segue.destination as? OrderVC {
                 
-                if let selectedCartItem = cartItemArray[tableView.indexPathForSelectedRow!.row] as? CartItemModel {
+                if let selectedCartItem = sender as? CartItemModel {
                     orderVC.cartItemForEditing = selectedCartItem
                     orderVC.isEditingCartItem = true
                 }
             }
-        
         }
-        
-        
     }
-    
-    
 }
+
+
+
+extension CartVC : cellSegueProtocol {
+    func moveToOrderVCForEdit(_ sender : UIButton) {
+        let selectedCell = cartItemArray[sender.tag]
+        performSegue(withIdentifier: "toOrderVCForEdit", sender: selectedCell)
+    }
+}
+

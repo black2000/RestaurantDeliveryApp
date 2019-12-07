@@ -12,7 +12,6 @@ class OrderVC: UIViewController  {
 
     var selectedRestaurant : RestaurantModel?
     var selectedMenuItem : MenuItemModel?
-    var count : Int? = 0
     
     //for editing
     var isEditingCartItem : Bool = false
@@ -77,7 +76,6 @@ class OrderVC: UIViewController  {
     private func configureViews(menuItemModel : MenuItemModel) {
         menuItemImageView.image = UIImage(named : menuItemModel.imageUrl)
         menuItemTitleLbl.text = menuItemModel.title
-        selectedItemCountLbl.text = "1"
     }
     
     
@@ -94,30 +92,29 @@ class OrderVC: UIViewController  {
     }
     
     
-    private func modifyCount(isIncreasing : Bool) -> Int {
-        
-        print("------ \(count!)")
-        
-        if isIncreasing {
-            count = count! + 1
-        }else {
-            guard count! >= 2 else {return count!}
-            count = count! - 1
-        }
-       
-         return count!
-    }
+//    private func modifyCount(isIncreasing : Bool) -> Int {
+//
+//        if isIncreasing {
+//            count = count! + 1
+//        }else {
+//            guard count! >= 2 else {return count!}
+//            count = count! - 1
+//        }
+//
+//         return count!
+//    }
 
     @IBAction func minusBtnPressed(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.selectedItemCountLbl.text = "\(self.modifyCount(isIncreasing: false))"
-        }
+       var num = Int(selectedItemCountLbl.text!)
+       guard num! >= 2 else {return}
+       num = num! - 1
+       selectedItemCountLbl.text = String(describing: num!)
     }
     
     @IBAction func addBtnPressed(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.selectedItemCountLbl.text = "\(self.modifyCount(isIncreasing: true))"
-        }
+        var num = Int(selectedItemCountLbl.text!)
+        num = num! + 1
+        selectedItemCountLbl.text = String(describing: num!)
     }
     
     

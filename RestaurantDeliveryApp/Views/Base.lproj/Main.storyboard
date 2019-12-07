@@ -284,7 +284,7 @@
         <!--Cart-->
         <scene sceneID="kxn-4l-RXT">
             <objects>
-                <viewController id="Lu1-hw-of1" customClass="CartVC" customModule="RestaurantDeliveryApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cart" id="Lu1-hw-of1" customClass="CartVC" customModule="RestaurantDeliveryApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fsu-rP-LP6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -398,7 +398,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="bgs-7y-6TF" kind="show" identifier="toOrderVCForEdit" id="UjJ-rA-skI"/>
+                                                        <action selector="editBtnPressed:" destination="Ukn-Rv-fgM" eventType="touchUpInside" id="2Sm-74-b1c"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -414,6 +414,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.57874745130000005" green="0.32151988149999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
+                                            <outlet property="editBtn" destination="GXR-yv-WHk" id="Ynb-Q8-IUr"/>
                                             <outlet property="menuItemTitleLbl" destination="K0C-Oe-30n" id="2zz-9F-poM"/>
                                             <outlet property="numOfSelectedmenuitemLbl" destination="AKv-1f-Pat" id="UIV-Cz-Y12"/>
                                             <outlet property="restaurantImageView" destination="oaV-ZS-rtA" id="7IL-ms-316"/>
@@ -442,6 +443,7 @@
                     <connections>
                         <outlet property="checkOutBtn" destination="acJ-BZ-03Z" id="t1j-wy-j3W"/>
                         <outlet property="tableView" destination="atC-y6-sxS" id="tyn-cx-Lcw"/>
+                        <segue destination="bgs-7y-6TF" kind="show" identifier="toOrderVCForEdit" id="VEA-At-G7X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsA-zz-Hz8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -768,7 +770,7 @@
         <!--OrderVC-->
         <scene sceneID="OWV-b1-96Z">
             <objects>
-                <viewController storyboardIdentifier="cart" id="bgs-7y-6TF" customClass="OrderVC" customModule="RestaurantDeliveryApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bgs-7y-6TF" customClass="OrderVC" customModule="RestaurantDeliveryApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Nz-6D-0HW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -895,7 +897,7 @@
                                     <constraint firstItem="Yk0-Lu-fHn" firstAttribute="top" secondItem="kyY-Ok-vvm" secondAttribute="top" constant="50" id="z7y-lX-muG"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgS-0s-Hwg">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="kgS-0s-Hwg">
                                 <rect key="frame" x="25.5" y="278" width="324" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="Q5f-wI-upx"/>
@@ -974,7 +976,7 @@
         <image name="sweets" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UjJ-rA-skI"/>
+        <segue reference="VEA-At-G7X"/>
         <segue reference="gDP-8O-hge"/>
     </inferredMetricsTieBreakers>
 </document>
