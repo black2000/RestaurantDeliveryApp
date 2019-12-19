@@ -16,4 +16,5 @@ struct RestaurantModel {
     var title : String
     var description : String
     var imageUrl : String
+    var numberOfStars : Double
 }

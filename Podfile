@@ -10,4 +10,5 @@ target 'RestaurantDeliveryApp' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'	
+  pod 'Cosmos'
 end

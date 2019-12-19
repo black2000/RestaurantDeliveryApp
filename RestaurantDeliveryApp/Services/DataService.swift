@@ -53,8 +53,9 @@ class DataService {
                     let restaurantTitle = restaurantDictionary["title"] as? String ?? "none"
                     let restaurantDescription =  restaurantDictionary["description"] as? String ?? "none"
                     let restaurantImageUrl = restaurantDictionary["imageUrl"] as? String ?? "restaurants"
+                    let restaurantNubmerOfStars = restaurantDictionary["num_stars"] as? Double ?? 0
                     
-                    let restaurantModel = RestaurantModel(id: restaurantId, title: restaurantTitle, description: restaurantDescription, imageUrl: restaurantImageUrl)
+                    let restaurantModel = RestaurantModel(id: restaurantId, title: restaurantTitle, description: restaurantDescription, imageUrl: restaurantImageUrl, numberOfStars: restaurantNubmerOfStars)
                     
                     restaurantArray.append(restaurantModel)
                 }
@@ -217,39 +218,7 @@ class DataService {
         }
     }
     
-//    private func getLastHistoryDocumentId(completion : @escaping (_ error : Error? ,_ lastHistoryDocumentId : String? ) -> ()) {
-//
-//        var historyArray = [UserOrderHistoryModel]()
-//
-//        initiateUserHistoryWithNewData { (error) in
-//
-//            if error != nil {
-//                completion(error , nil)
-//            }else {
-//
-//            USERS.document(UserConfigurations.currentUserID!).collection("history").getDocuments { (snapShot, error) in
-//                    if error != nil {
-//                        completion(error,nil)
-//                        print("error in getting historyId")
-//                    }else {
-//                        for document in snapShot!.documents {
-//
-//                            let id = document.documentID
-//                            let historyDictionary = document.data()
-//
-//                            let orderDateCreate = historyDictionary["date_order_created"] as? String ?? "none"
-//
-//                            let userHistory = UserOrderHistoryModel(id: id, dateOrderCreated: orderDateCreate, cartArray: nil)
-//
-//                            historyArray.append(userHistory)
-//                        }
-//                        completion(nil, historyArray[historyArray.count - 1 ].id)
-//                    }
-//                }
-//                completion(nil, historyArray[historyArray.count - 1 ].id)
-//            }
-//        }
-//    }
+
     
     
     
@@ -365,16 +334,47 @@ class DataService {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func LoadRestaurantReviews(isRegularRestaurant : Bool , restaurantId : String , completion : @escaping (_ error : Error? , _ restaurantReviews : [UserReviewModel]?)-> () ) {
+        
+        
+        var reviewArray = [UserReviewModel]()
+        
+        var restaurantCollectionReferenceById =  isRegularRestaurant ? REGULAR_RESTAURANTS.document(restaurantId) : SWEET_RESTAURANTS.document(restaurantId)
+        
+        restaurantCollectionReferenceById.collection("reviews").getDocuments { (snapShot, error) in
+            
+            
+                if error != nil {
+                    completion(error , nil)
+                }else {
+                    for document in snapShot!.documents {
+                        
+                        let reviewId = document.documentID
+                        let reviewData = document.data()
+                        
+                        let reviewUserId = reviewData["userid"] as? String ?? "no user id"
+                        let reviewRestaurantId = reviewData["restaurantid"] as? String ?? "no restaurant id "
+                        let reviewUserEmail = reviewData["useremail"] as? String ?? "no useremail"
+                        let reviewUserMessage = reviewData["message"] as? String ?? "no message"
+                        let reviewUserNumOfStars = reviewData["num_stars"] as? Double ?? 0
+                        
+                        
+                        let userReview = UserReviewModel(id: reviewId, userId: reviewUserId, restaurantId: reviewRestaurantId, userEmail: reviewUserEmail, message: reviewUserMessage, numberOfStars: reviewUserNumOfStars)
+                        
+                        reviewArray.append(userReview)
+                    }
+                    completion(nil , reviewArray)
+                }
+            
+           }
+        
+        
+        
+        
+        
+        
+        
+    }
     
     
     
