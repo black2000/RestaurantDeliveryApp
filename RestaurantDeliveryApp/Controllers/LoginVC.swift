@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginVC: UIViewController {
 
@@ -29,6 +30,13 @@ class LoginVC: UIViewController {
             
             AuthService.instance.LoginUser(user: user) { (error) in
                 if error == nil {
+                    
+                    Auth.auth().currentUser?.reload(completion: { (error) in
+                        if error != nil {
+                            print(error!)
+                        }
+                    })
+                    
                     UserConfigurations.moveToRestaurantVC()
                 }else {
                     print("couldnot login due to error \(error!)")

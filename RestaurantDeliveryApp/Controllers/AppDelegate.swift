@@ -19,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        Auth.auth().currentUser?.reload(completion: { (error) in
+            if error != nil {
+                print(error!)
+            }
+        })
         
         if Auth.auth().currentUser != nil {
            UserConfigurations.moveToRestaurantVC()

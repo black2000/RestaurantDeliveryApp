@@ -40,11 +40,12 @@ class DataService {
         var restaurantCollectionReference =  isRegularRestaurants ? REGULAR_RESTAURANTS : SWEET_RESTAURANTS
         var restaurantArray = [RestaurantModel]()
         
-        restaurantCollectionReference.getDocuments { (querySnapshot, error) in
+        restaurantCollectionReference.addSnapshotListener { (querySnapshot, error) in
             
             if error != nil {
                 completion(error, nil )
             }else {
+                restaurantArray.removeAll()
                 for restaurantDocument in querySnapshot!.documents {
                     
                     let restaurantId = restaurantDocument.documentID
@@ -60,6 +61,7 @@ class DataService {
                     restaurantArray.append(restaurantModel)
                 }
                 completion(nil , restaurantArray)
+                restaurantArray.removeAll()
             }
         }
     }
@@ -333,48 +335,170 @@ class DataService {
     
     
     
+
+    
+    
     
     func LoadRestaurantReviews(isRegularRestaurant : Bool , restaurantId : String , completion : @escaping (_ error : Error? , _ restaurantReviews : [UserReviewModel]?)-> () ) {
         
         
         var reviewArray = [UserReviewModel]()
         
+        
+        
         var restaurantCollectionReferenceById =  isRegularRestaurant ? REGULAR_RESTAURANTS.document(restaurantId) : SWEET_RESTAURANTS.document(restaurantId)
+        
+        restaurantCollectionReferenceById.collection("reviews").addSnapshotListener () { (snapShot, error) in
+            
+            if error != nil {
+                completion(error , nil)
+            }else {
+                reviewArray.removeAll()
+                
+                for document in snapShot!.documents {
+                    
+                    let reviewId = document.documentID
+                    let reviewData = document.data()
+                    
+                    let reviewUserId = reviewData["userid"] as? String ?? "no user id"
+                    let reviewRestaurantId = reviewData["restaurantid"] as? String ?? "no restaurant id "
+                    let reviewUserEmail = reviewData["useremail"] as? String ?? "no useremail"
+                    let reviewUserMessage = reviewData["message"] as? String ?? "no message"
+                    let reviewUserNumOfStars = reviewData["num_stars"] as? Double ?? 0
+                    
+                    
+                    let userReview = UserReviewModel(id: reviewId, userId: reviewUserId, restaurantId: reviewRestaurantId, userEmail: reviewUserEmail, message: reviewUserMessage, numberOfStars: reviewUserNumOfStars)
+                    
+                    reviewArray.append(userReview)
+                }
+                completion(nil , reviewArray)
+                reviewArray.removeAll()
+            }
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    func addReview(isRegularRestaurant : Bool ,userReview : UserReviewModel , completion : @escaping (_ error : Error?) -> ()) {
+        
+          var restaurantCollectionReferenceById =  isRegularRestaurant ? REGULAR_RESTAURANTS.document(userReview.restaurantId) : SWEET_RESTAURANTS.document(userReview.restaurantId)
+        
+        
+        restaurantCollectionReferenceById.updateData([
+            "num_stars" : FieldValue.increment(userReview.numberOfStars/10)
+            ])
+        
+         restaurantCollectionReferenceById.collection("reviews").addDocument(data : [
+                "userid" : userReview.userId,
+                "restaurantid" : userReview.restaurantId,
+                "useremail" : userReview.userEmail,
+                "message" : userReview.message,
+                "num_stars" : userReview.numberOfStars,
+        ]) {
+            
+            error in
+            
+            if error != nil {
+                completion(error)
+            }else {
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    func removeReview(isRegularRestaurant : Bool ,userReview : UserReviewModel , completion : @escaping (_ error : Error?) -> ()) {
+        
+        
+        var restaurantCollectionReferenceById =  isRegularRestaurant ? REGULAR_RESTAURANTS.document(userReview.restaurantId) : SWEET_RESTAURANTS.document(userReview.restaurantId)
+        
+        restaurantCollectionReferenceById.updateData([
+            "num_stars" : FieldValue.increment(-(userReview.numberOfStars/10))
+            ])
+        
+        
         
         restaurantCollectionReferenceById.collection("reviews").getDocuments { (snapShot, error) in
             
-            
-                if error != nil {
-                    completion(error , nil)
-                }else {
-                    for document in snapShot!.documents {
-                        
-                        let reviewId = document.documentID
-                        let reviewData = document.data()
-                        
-                        let reviewUserId = reviewData["userid"] as? String ?? "no user id"
-                        let reviewRestaurantId = reviewData["restaurantid"] as? String ?? "no restaurant id "
-                        let reviewUserEmail = reviewData["useremail"] as? String ?? "no useremail"
-                        let reviewUserMessage = reviewData["message"] as? String ?? "no message"
-                        let reviewUserNumOfStars = reviewData["num_stars"] as? Double ?? 0
-                        
-                        
-                        let userReview = UserReviewModel(id: reviewId, userId: reviewUserId, restaurantId: reviewRestaurantId, userEmail: reviewUserEmail, message: reviewUserMessage, numberOfStars: reviewUserNumOfStars)
-                        
-                        reviewArray.append(userReview)
+            if error == nil {
+                for document in snapShot!.documents {
+                    
+                    if document.documentID == userReview.id! {
+                        document.reference.delete(completion: { (error) in
+                            if error != nil {
+                                completion(error)
+                            }else {
+                                
+                            }
+                        })
                     }
-                    completion(nil , reviewArray)
+                    
                 }
-            
-           }
-        
-        
-        
-        
-        
-        
+                completion(nil)
+            }else {
+                completion(error)
+            }
+        }
         
     }
+    
+    
+    
+    func editReview(isRegularRestaurant : Bool ,previousRate : Double ,userReview : UserReviewModel , completion : @escaping (_ error : Error?) -> ()) {
+        
+        var restaurantCollectionReferenceById =  isRegularRestaurant ? REGULAR_RESTAURANTS.document(userReview.restaurantId) : SWEET_RESTAURANTS.document(userReview.restaurantId)
+        
+        var value : Double = 0
+        
+        if previousRate < userReview.numberOfStars {
+            value = (userReview.numberOfStars/10) - previousRate
+        }else if previousRate > userReview.numberOfStars {
+            value = (userReview.numberOfStars/10) - previousRate
+        }else if previousRate == (userReview.numberOfStars/10)  {
+            value = (userReview.numberOfStars/10) 
+        }
+        
+        
+        restaurantCollectionReferenceById.updateData([
+            "num_stars" : FieldValue.increment(value)
+            ])
+        
+        
+        
+        restaurantCollectionReferenceById.collection("reviews").document(userReview.id!).updateData([
+            "message" : userReview.message,
+            "num_stars" : userReview.numberOfStars
+        ]) {
+            
+            error in
+            
+            if error != nil {
+                completion(error)
+            }else {
+                completion(nil)
+            }
+        }
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

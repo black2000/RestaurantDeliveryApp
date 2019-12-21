@@ -11,4 +11,5 @@ target 'RestaurantDeliveryApp' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'	
   pod 'Cosmos'
+  pod 'SwipeCellKit'
 end

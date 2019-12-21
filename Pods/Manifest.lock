@@ -272,12 +272,14 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - SwipeCellKit (2.7.1)
 
 DEPENDENCIES:
   - Cosmos
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
+  - SwipeCellKit
 
 SPEC REPOS:
   trunk:
@@ -302,6 +304,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - SwipeCellKit
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -325,7 +328,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 14bb837a8e56eccd5b5e7035ca8e1fdbbecbb46f
+PODFILE CHECKSUM: 6c9c65732249e1406a1ef93dc9b220835803d3e6
 
 COCOAPODS: 1.8.4

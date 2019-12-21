@@ -8,8 +8,9 @@
 
 import UIKit
 import Cosmos
+import SwipeCellKit
 
-class ReviewCell: UITableViewCell {
+class ReviewCell: SwipeTableViewCell {
 
    
     @IBOutlet weak var userEmailLbl: UILabel!

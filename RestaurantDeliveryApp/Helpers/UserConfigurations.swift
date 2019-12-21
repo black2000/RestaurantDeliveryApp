@@ -13,6 +13,8 @@ import FirebaseAuth
 
 class UserConfigurations {
     static let currentUserID  = Auth.auth().currentUser?.uid
+    static let currentUserEmail = Auth.auth().currentUser?.email
+    
     static let userDefaultKey = "currentRestaurantId"
     
     
