@@ -21,6 +21,8 @@ let SWEET_RESTAURANTS  = DB_REF.collection("sweet_restaurants")
 class DataService {
     static let instance = DataService()
     
+  
+    
     func addUser(user : UserModel , completion : @escaping (_ error : Error?) -> () )  {
         USERS.addDocument(data: [
             "email" : user.email,
@@ -46,7 +48,11 @@ class DataService {
                 completion(error, nil )
             }else {
                 restaurantArray.removeAll()
+                
+                
                 for restaurantDocument in querySnapshot!.documents {
+                
+                    var arr = [MenuItemModel]()
                     
                     let restaurantId = restaurantDocument.documentID
                     let restaurantDictionary = restaurantDocument.data()
@@ -65,6 +71,17 @@ class DataService {
             }
         }
     }
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     func loadRestaurantMenuItems(restaurantId : String , isRegularRestaurants : Bool , isDishes : Bool , completion : @escaping (_ error : Error? ,_ menuItemArray : [MenuItemModel]? ) -> () ) {
@@ -492,13 +509,90 @@ class DataService {
     
     
     
+    func loadUserOrderHistory(completion : @escaping (_ error :Error? ,_ userHistoryArray : [UserOrderHistoryModel]?) -> ()) {
+        
+        var historyArray = [UserOrderHistoryModel]()
+       
+        let userHistoryRef = USERS.document(UserConfigurations.currentUserID!).collection("history")
+        
+        userHistoryRef.getDocuments { (snapShots, error) in
+            
+            if error != nil {
+                  completion(error , nil)
+            }else {
+                
+                historyArray.removeAll()
+                
+                for document in snapShots!.documents {
+                
+                    let historyId = document.documentID
+                    let historyData = document.data()
+                    let historyTimeStamp = historyData["date_order_created"] as? Timestamp ?? nil
+                    
+                    let historyDate =  historyTimeStamp?.dateValue()
+                    
+                    let formmatedDate = UserConfigurations.dateConverter(date: historyDate!)
+                    
+                    var orderArray = [CartItemModel]()
+                    
+                    self.loadUserHistoryOrders(histroyDocumentReference: userHistoryRef.document(historyId), completion: { (error, cartArray) in
+                    
+                        if error != nil {
+                            print(error!)
+                        }else {
+                          orderArray = cartArray!
+                            
+                            let userHistory = UserOrderHistoryModel(id: historyId, dateOrderCreated: formmatedDate , cartArray: orderArray)
+                            
+                            historyArray.append(userHistory)
+                            
+                            completion(nil , historyArray)
+                        }
+                        
+                    })
+                    
+                   
+                }
+                completion(nil , historyArray)
+            }
+        }
+        
+    }
     
     
     
+    private  func loadUserHistoryOrders( histroyDocumentReference : DocumentReference, completion : @escaping (_ error : Error? ,_ historyOrders : [CartItemModel]? ) -> ())  {
     
+        var cartArray = [CartItemModel]()
     
-    
-    
+        histroyDocumentReference.collection("orders").getDocuments  { (snapShot, error) in
+            if error != nil {
+                completion(error,nil)
+            }else {
+            
+            for document in snapShot!.documents {
+                
+                let id = document.documentID
+                
+                let cartDictionary = document.data()
+                
+                let restaurantImageUrl = cartDictionary["restaurant_imageurl"] as? String ?? "none"
+                let restaurantName = cartDictionary["restaurant_title"] as? String ?? "none"
+                let menuItemImageUrl = cartDictionary["menuItem_imageurl"] as? String ?? "none"
+                let menuItemName = cartDictionary["menuItem_title"] as? String ?? "none"
+                let count = cartDictionary["number_of_selected_menuitem"] as? Int ?? 0
+                
+                let cart = CartItemModel(id: id, restaurantImageUrl: restaurantImageUrl, restaurantTitle: restaurantName, menuItemImageUrl: menuItemImageUrl, menuItemTitle: menuItemName, countOfMenuItemSelected: count)
+                
+                cartArray.append(cart)
+                
+            }
+            
+            completion(nil , cartArray)
+        }
+
+      }
+    }
     
     
     

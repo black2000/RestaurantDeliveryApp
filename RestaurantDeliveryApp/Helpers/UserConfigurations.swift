@@ -52,4 +52,10 @@ class UserConfigurations {
         }
     }
     
+   static func dateConverter(date : Date) -> String {
+        let dateFormmater = DateFormatter()
+        dateFormmater.dateFormat = "EEEE, d MMM yyyy HH:mm:ss "
+        return dateFormmater.string(from: date)
+    }
+    
 }
