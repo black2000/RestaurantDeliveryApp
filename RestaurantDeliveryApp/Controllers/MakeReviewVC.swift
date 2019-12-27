@@ -28,8 +28,10 @@ class MakeReviewVC: UIViewController {
         userEmailLbl.text = UserConfigurations.currentUserEmail
        
         self.userRate.settings.starSize = 45
+        self.userRate.backgroundColor = #colorLiteral(red: 0.9050763249, green: 0.9215643406, blue: 0.9342173338, alpha: 1)
         self.userRate.settings.totalStars = 5
-        self.userRate.settings.filledColor = #colorLiteral(red: 0.5649692358, green: 0.08132855891, blue: 0, alpha: 1)
+        self.userRate.settings.filledColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+        self.userRate.settings.starMargin = 25
         
         if isUpdating {
             configureViewsForUpdating()

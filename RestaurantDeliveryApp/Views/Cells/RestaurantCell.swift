@@ -34,7 +34,7 @@ class RestaurantCell: CustomTableViewCell {
         restaurantRate.settings.fillMode = .precise
         restaurantRate.settings.filledColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
          restaurantRate.backgroundColor = #colorLiteral(red: 0.9050763249, green: 0.9215643406, blue: 0.9342173338, alpha: 1)
-        restaurantRate.text = "  (\(String(format: "%.1f",restaurantModel.numberOfStars))"
+        restaurantRate.text = " (\(String(format: "%.1f",restaurantModel.numberOfStars))"
         
         restaurantRate.settings.updateOnTouch = false
         

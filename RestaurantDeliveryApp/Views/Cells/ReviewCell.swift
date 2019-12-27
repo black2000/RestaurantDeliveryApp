@@ -21,9 +21,9 @@ class ReviewCell: SwipeTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layer.borderWidth = CGFloat(2.0)
+        self.layer.borderWidth = CGFloat(5.0)
         self.layer.borderColor = UIColor.white.cgColor
-        self.layer.cornerRadius = CGFloat(5.0)
+        self.layer.cornerRadius = CGFloat(10.0)
     }
     
     func configureCells(userReviewModel : UserReviewModel) {
@@ -35,10 +35,11 @@ class ReviewCell: SwipeTableViewCell {
         
         userRate.rating = userReviewModel.numberOfStars
         userRate.settings.totalStars = 5
-        userRate.settings.starSize = 40
+        userRate.settings.starSize = 25
         userRate.settings.fillMode = .precise
-        userRate.settings.filledColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
-        userRate.text = "  (\(userReviewModel.numberOfStars))"
+        userRate.settings.filledColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+        userRate.backgroundColor = #colorLiteral(red: 0.9050763249, green: 0.9215643406, blue: 0.9342173338, alpha: 1)
+        userRate.text = " (\(String(format: "%.1f",userReviewModel.numberOfStars))"
         userRate.settings.updateOnTouch = false
     }
     
