@@ -12,9 +12,9 @@ class CustomTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layer.borderWidth = CGFloat(2.0)
+        self.layer.borderWidth = CGFloat(5.0)
         self.layer.borderColor = UIColor.white.cgColor
-        self.layer.cornerRadius = CGFloat(5.0)
+        self.layer.cornerRadius = CGFloat(20.0)
     }
 
 }

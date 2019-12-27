@@ -7,14 +7,11 @@
 //
 
 import UIKit
-
-protocol cellSegueProtocol {
-    func moveToOrderVCForEdit(_ sender : UIButton)
-}
+import SwipeCellKit
 
 
 
-class CartItemCell: CustomTableViewCell {
+class CartItemCell: SwipeTableViewCell {
 
     
     @IBOutlet weak var restaurantImageView: UIImageView!
@@ -22,18 +19,15 @@ class CartItemCell: CustomTableViewCell {
     @IBOutlet weak var menuItemTitleLbl: UILabel!
     @IBOutlet weak var numOfSelectedmenuitemLbl: UILabel!
     
-    @IBOutlet weak var editBtn: UIButton!
-    
-    var delegate : cellSegueProtocol?
     
     
-    @IBAction func editBtnPressed(_ sender: Any) {
-       
-        guard delegate != nil else {return}
-        delegate!.moveToOrderVCForEdit(sender as! UIButton)
+   
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.layer.borderWidth = CGFloat(2.0)
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.cornerRadius = CGFloat(5.0)
     }
-    
-    
     
     
     func configureViews(cartItemModel : CartItemModel) {

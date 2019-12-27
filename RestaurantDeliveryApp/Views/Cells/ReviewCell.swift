@@ -18,6 +18,14 @@ class ReviewCell: SwipeTableViewCell {
     @IBOutlet weak var userRate: CosmosView!
     
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.layer.borderWidth = CGFloat(2.0)
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.cornerRadius = CGFloat(5.0)
+    }
+    
     func configureCells(userReviewModel : UserReviewModel) {
         
         userEmailLbl.text = userReviewModel.userEmail

@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import SwipeCellKit
 
 class CartVC: UIViewController {
 
@@ -55,7 +56,7 @@ class CartVC: UIViewController {
     }
     
     @IBAction func cancelBtnPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -106,7 +107,6 @@ extension CartVC : UITableViewDelegate , UITableViewDataSource {
             let cart = cartItemArray[indexPath.row]
             cell.configureViews(cartItemModel: cart)
             cell.delegate = self
-            cell.editBtn.tag = indexPath.row
             return cell
         
         }else {
@@ -114,23 +114,6 @@ extension CartVC : UITableViewDelegate , UITableViewDataSource {
         }
     }
     
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-                let cart = cartItemArray[indexPath.row]
-            DataService.instance.clearSpecificUserCartData(cartId: cart.id!) { (error) in
-                
-                if error != nil {
-                    print("error deleting data due to \(error!)")
-                }else {
-                    self.cartItemArray.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                    self.checkViews()
-                }
-            }
-        }
-    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -146,14 +129,50 @@ extension CartVC : UITableViewDelegate , UITableViewDataSource {
             }
         }
     }
+    
 }
 
 
-
-extension CartVC : cellSegueProtocol {
-    func moveToOrderVCForEdit(_ sender : UIButton) {
-        let selectedCell = cartItemArray[sender.tag]
-        performSegue(withIdentifier: "toOrderVCForEdit", sender: selectedCell)
+extension CartVC : SwipeTableViewCellDelegate {
+    
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            
+            let cart = self.cartItemArray[indexPath.row]
+            
+            DataService.instance.clearSpecificUserCartData(cartId: cart.id!) { (error) in
+                
+                if error != nil {
+                    print("error deleting data due to \(error!)")
+                }else {
+                    self.cartItemArray.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.checkViews()
+                }
+            }
+        }
+        
+        
+        let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
+            
+            let cart = self.cartItemArray[indexPath.row]
+            self.performSegue(withIdentifier: "toOrderVCForEdit", sender: cart)
+        }
+        
+        
+        // customize the action appearance
+        deleteAction.title =  "Delete"
+        deleteAction.backgroundColor = #colorLiteral(red: 0.5649692358, green: 0.08132855891, blue: 0, alpha: 1)
+        
+        editAction.title =  "Edit"
+        editAction.backgroundColor = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+        
+        return [deleteAction , editAction]
     }
+    
 }
+
 
