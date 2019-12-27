@@ -38,7 +38,7 @@ class CartItemCell: SwipeTableViewCell {
         
         menuItemTitleLbl.text = cartItemModel.menuItemTitle
         
-        numOfSelectedmenuitemLbl.text = String(describing : cartItemModel.countOfMenuItemSelected) 
+        numOfSelectedmenuitemLbl.text = "   \(cartItemModel.countOfMenuItemSelected) X "
         
     }
     
