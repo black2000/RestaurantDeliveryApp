@@ -29,9 +29,17 @@ class OrderVC: UIViewController  {
     @IBOutlet weak var addToCartBtn: UIButton!
     @IBOutlet weak var updateView: UIView!
     
+    @IBOutlet weak var counterStackView: UIStackView!
+    @IBOutlet weak var orderView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        counterStackView.layer.cornerRadius = 30
+        orderView.layer.cornerRadius = 30
+        
         if isEditingCartItem {
             if let existingCartItem = cartItemForEditing {
                 configureButtons(isEditingMode: isEditingCartItem)
