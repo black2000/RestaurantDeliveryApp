@@ -55,10 +55,11 @@ extension UserHistoryVC : UITableViewDelegate , UITableViewDataSource {
         
        
         let orderDateLbl = UILabel()
-        orderDateLbl.font = UIFont(name: "font name", size: 40)
+        orderDateLbl.font = UIFont(name: "font name", size: 50)
+        orderDateLbl.textAlignment = .center
         orderDateLbl.text = userHistoryArray[section].dateOrderCreated
-        orderDateLbl.backgroundColor = #colorLiteral(red: 0.9990100265, green: 0.8381191492, blue: 0.03709340096, alpha: 1)
-        orderDateLbl.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        orderDateLbl.backgroundColor = #colorLiteral(red: 0.9960784314, green: 0.231372549, blue: 0.2941176471, alpha: 1)
+        orderDateLbl.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return orderDateLbl
     }
     

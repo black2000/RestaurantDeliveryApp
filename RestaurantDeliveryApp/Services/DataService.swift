@@ -72,18 +72,6 @@ class DataService {
         }
     }
     
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     func loadRestaurantMenuItems(restaurantId : String , isRegularRestaurants : Bool , isDishes : Bool , completion : @escaping (_ error : Error? ,_ menuItemArray : [MenuItemModel]? ) -> () ) {
         
         var restaurantCollectionReferenceById =  isRegularRestaurants ? REGULAR_RESTAURANTS.document(restaurantId) : SWEET_RESTAURANTS.document(restaurantId)
@@ -115,7 +103,6 @@ class DataService {
         }
     }
     
-    
     func addMenuItemToCart(numberOFSelecteditem: Int ,restaurant : RestaurantModel ,menuItem : MenuItemModel , completion : @escaping (_ error : Error?) -> () ) {
         
         let cartItem = CartItemModel(id: "", restaurantImageUrl: restaurant.imageUrl,  restaurantTitle: restaurant.title, menuItemImageUrl: menuItem.imageUrl, menuItemTitle: menuItem.title, countOfMenuItemSelected : numberOFSelecteditem)
@@ -135,7 +122,6 @@ class DataService {
             }
         }
     }
-    
     
     func clearAllUserCartData(completion : @escaping (_ error : Error?) -> ()){
         
@@ -158,9 +144,6 @@ class DataService {
             }
         }
     }
-    
-    
-    
     
     func clearSpecificUserCartData(cartId : String ,completion : @escaping (_ error : Error?) -> ()){
         
@@ -186,10 +169,6 @@ class DataService {
             }
         }
     }
-    
-    
-    
-    
     
      func loadUserCartData(completion : @escaping (_ error : Error? ,_ carts : [CartItemModel]?) -> () ) {
         
@@ -222,7 +201,6 @@ class DataService {
         }
     }
     
-    
     private func initiateUserHistoryWithNewData(completion : @escaping (_ error : Error?) -> () ) {
         
     USERS.document(UserConfigurations.currentUserID!).collection("history").addDocument(data: [
@@ -236,10 +214,6 @@ class DataService {
             }
         }
     }
-    
-
-    
-    
     
      func getLastHistoryDocumentId(completion : @escaping (_ error : Error? ,_ lastHistoryDocumentId : String? ) -> ()) {
         
@@ -267,7 +241,6 @@ class DataService {
         }
     }
     }
-    
 
     func returnLastHistoryId() -> String? {
         var historyId : String? = ""
@@ -280,9 +253,6 @@ class DataService {
         }
         return historyId
     }
-    
-    
-    
     
     
     func MoveDataFromUserCartToUserHistory(completion : @escaping (_ error : Error?) -> () ) {
@@ -334,8 +304,6 @@ class DataService {
         }
     }
     
-    
-    
     func updateUserCartData(cartId : String , numberOfItemSelected : Int ,completion : @escaping (_ error : Error?) -> ()){
         
        USERS.document(UserConfigurations.currentUserID!).collection("cart").document(cartId).updateData([
@@ -349,12 +317,6 @@ class DataService {
             }
         }
     }
-    
-    
-    
-
-    
-    
     
     func LoadRestaurantReviews(isRegularRestaurant : Bool , restaurantId : String , completion : @escaping (_ error : Error? , _ restaurantReviews : [UserReviewModel]?)-> () ) {
         
@@ -395,12 +357,6 @@ class DataService {
         }
     }
     
-    
-    
-    
-    
-    
-    
     func addReview(isRegularRestaurant : Bool ,userReview : UserReviewModel , completion : @escaping (_ error : Error?) -> ()) {
         
           var restaurantCollectionReferenceById =  isRegularRestaurant ? REGULAR_RESTAURANTS.document(userReview.restaurantId) : SWEET_RESTAURANTS.document(userReview.restaurantId)
@@ -427,11 +383,6 @@ class DataService {
             }
         }
     }
-    
-    
-    
-    
-    
     
     func removeReview(isRegularRestaurant : Bool ,userReview : UserReviewModel , completion : @escaping (_ error : Error?) -> ()) {
         
@@ -467,8 +418,6 @@ class DataService {
         }
         
     }
-    
-    
     
     func editReview(isRegularRestaurant : Bool ,previousRate : Double ,userReview : UserReviewModel , completion : @escaping (_ error : Error?) -> ()) {
         
@@ -506,8 +455,6 @@ class DataService {
         }
 
     }
-    
-    
     
     func loadUserOrderHistory(completion : @escaping (_ error :Error? ,_ userHistoryArray : [UserOrderHistoryModel]?) -> ()) {
         
@@ -559,8 +506,6 @@ class DataService {
         
     }
     
-    
-    
     private  func loadUserHistoryOrders( histroyDocumentReference : DocumentReference, completion : @escaping (_ error : Error? ,_ historyOrders : [CartItemModel]? ) -> ())  {
     
         var cartArray = [CartItemModel]()
@@ -593,7 +538,6 @@ class DataService {
 
       }
     }
-    
     
     
 }

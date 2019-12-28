@@ -8,6 +8,7 @@
 
 import UIKit
 import SwipeCellKit
+import FirebaseAuth
 
 class ReviewsVC: UIViewController {
 
@@ -93,13 +94,14 @@ extension ReviewsVC : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+            let email = reviewArray[indexPath.row].userEmail
             let id = reviewArray[indexPath.row].userId
         
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell") as? ReviewCell  {
                 
                 let review = reviewArray[indexPath.row]
                 cell.configureCells(userReviewModel: review)
-                if UserConfigurations.currentUserID == id {
+                if Auth.auth().currentUser?.email == email && Auth.auth().currentUser?.uid == id {
                     cell.delegate = self
                 }
                 return cell
